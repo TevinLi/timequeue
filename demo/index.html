@@ -8,8 +8,14 @@
 		<style>
 			#box {
 				width: 100px;
+				height: 50px;
 				padding: 10px;
 				background: #f0f2ff;
+			}
+			#box2 {
+				width: 100px;
+				height: 100px;
+				background: #aaaaff;
 			}
 		</style>
 		<script>
@@ -26,15 +32,26 @@
 
 	<body>
 		<br />
+		<div><b>Demo1</b>：自动开始 + 时间节点控制</div>
+		<br />
 		<div id="box">init</div>
 		<br />
 		<input type="button" id="pause" value="暂停" />
 		<input type="button" id="continue" value="继续" />
 		<input type="button" id="clean" value="清理" />
 		<br />
-		<br /> 重新加入一队动画，其节点数为：
+		<br />重新加入一队动画，其时间节点数为：
 		<input type="text" id="number" value="10" />
 		<input type="button" id="add" value="添加" />
+		<br />
+		<br />
+		<hr />
+		<br />
+		<div><b>Demo2</b>：手动开始</div>
+		<br />
+		<div id="box2" style="transition-duration:.5s;position:relative;left:0;"></div>
+		<br />
+		<input type="button" id="play" value="播放动画" />
 		<br />
 		<br />
 		<hr />下载 <a href="../timeQueue.rar">timeQueue.rar(v0.3)</a>
@@ -47,7 +64,7 @@
 				for (var i = 0; i < num; i++) {
 					que.delay(1000, function() {
 						box.innerHTML = 'step' + ++count;
-						console.log(count)
+						//console.log(count)
 					});
 				}
 			};
@@ -64,6 +81,17 @@
 			document.getElementById('add').onclick = function() {
 				var num = document.getElementById('number').value;
 				team(num);
+			};
+			var count2 = 0;
+			var box2 = document.getElementById('box2');
+			var que2 = new TimeQueue(true);
+			for (var j = 0; j < 10; j++) {
+				que2.delay(1000, function() {
+					box2.style.left = (++count2 * 20) + 'px';
+				});
+			}
+			document.getElementById('play').onclick = function() {
+				que2.continue();
 			};
 		</script>
 	</body>
