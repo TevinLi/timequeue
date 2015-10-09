@@ -19,7 +19,6 @@
 	}).delay(500, function() {	//连写
 		$('#div3').addClass('show');
 	});
-	que1.run();
 
 ### 方法说明 ###
 
