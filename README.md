@@ -27,30 +27,30 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 
 **new TimeQueue( pause );**  
 创建一个新的时间列队，可以创建多个相互不影响  
-- pause： 布尔，可选，默认false不暂停，是否在申明时就处于暂停状态
+- pause： 布尔，可选，默认false不暂停，是否在申明时就处于暂停状态  
 
 **.duration( durationTime, callback );**  
-持续时间方式加入列队成员，本成员开始执行后，持续多长时间后再执行下一个成员（推荐）
-- durationTime： 毫秒，必须，本成员执行需要占用多长时间
-- callback： 回调，可选
+持续时间方式加入列队成员，本成员开始执行后，持续多长时间后再执行下一个成员（推荐）  
+- durationTime： 毫秒，必须，本成员执行需要占用多长时间  
+- callback： 回调，可选  
 
 **.delay( delayTime, callback );**  
 延迟时间方式加入列队成员，从上一个成员**开始执行**算起，延迟多少时间后执行本成员  
 - delayTime： 毫秒，必须，上一成员开始执行后(尚未结束)的延迟时间  
-- callback： 回调，可选
+- callback： 回调，可选  
 
 **actionList( type, list )**  
 批量添加成员  
-- type： 'duration'/'delay'，必须，list中时间的类型
-- list： 数组，必须，成员列表，格式如下
-
+- type： 'duration' / 'delay'，必须，list中时间的类型  
+- list： 数组，必须，成员列表，格式如下  
+  
 	[
 	  [500, function(){ /* do something a */ }],
 	  [700, function(){ /* do something b */ }]
 	]
 
 **.pause();**  
-暂停此时间列队
+暂停此时间列队  
 
 **.continue();**  
 取消暂停继续执行  
