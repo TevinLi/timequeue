@@ -1,22 +1,25 @@
 # timeQueue.js #
 
 一个时间列队管理的小工具  
-timeQueue代码很简单，才几十行，但是有效解决了大量setTimeout密集调用时难以维护的问题的。使用它，没有N层嵌套，使用“相对时间”，随时可添加，修改顺序简单，可暂停、继续、清空
+timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的问题而创建的。  
+使用它，没有N层嵌套，使用“相对时间”，单个添加、批量添加、改序、暂停、继续、清空等操作让时间列队简单可控
 
 ## 用法 ##
 
 ### 引入script ###
 	<script src="../src/timeQueue.js"></script>
 
-#### 使用示例 ####
+### 使用示例 ###
 
 	var que1 = new TimeQueue();
+	//单写
 	que1.delay(800, function() {
 		$('#div1').addClass('show');
 	});
+	//连写
 	que1.delay(4500, function() {
 		$('#div2').addClass('show');
-	}).delay(500, function() {	//连写
+	}).delay(500, function() {	
 		$('#div3').addClass('show');
 	});
 
@@ -24,24 +27,36 @@ timeQueue代码很简单，才几十行，但是有效解决了大量setTimeout�
 
 **new TimeQueue( pause );**  
 创建一个新的时间列队，可以创建多个相互不影响  
-- **pause**：布尔，可选，默认false不暂停，是否在申明时就处于暂停状态
+- pause： 布尔，可选，默认false不暂停，是否在申明时就处于暂停状态
 
-**.delay( time, callback );**  
-从上一个动作**开始**算起，延迟多少时间后执行本次动作  
-处于非暂停状态时添加节点，则立即开始列队第一个节点计时  
-- **time**：毫秒，必须，延迟时间  
-- **callback**：回调，可选，要执行的动作
+**.duration( durationTime, callback )**
+持续时间方式加入列队成员，本成员开始执行后，持续多长时间后再执行下一个成员（推荐）
+- durationTime： 毫秒，必须，本成员执行需要占用多长时间
+- callback： 回调，可选
+
+**.delay( delayTime, callback );**  
+延迟时间方式加入列队成员，从上一个成员**开始执行**算起，延迟多少时间后执行本成员  
+- delayTime： 毫秒，必须，上一成员开始执行后(尚未结束)的延迟时间  
+- callback： 回调，可选
+
+**actionList( type, list )**  
+批量添加成员  
+- type： 'duration'/'delay'，必须，list中时间的类型  
+- list： 数组，必须，成员列表，格式如下  
+
+	[
+		[500, function(){ /* do something a */ }],
+		[700, function(){ /* do something b */ }]
+	]
 
 **.pause();**  
 暂停此时间列队
 
 **.continue();**  
 取消暂停继续执行  
-当处于非暂停状态时，此为空动作
 
 **.clean();**  
 清空时间列队，阻止正在计时的动作  
-当列队已经播放完成时，此为空动作
 
 ## Demo ##
 [http://code.xf09.net/timequeue/demo/](http://code.xf09.net/timequeue/demo/index.html "http://code.xf09.net/timequeue/demo/index.html")
@@ -113,7 +128,11 @@ timeQueue代码很简单，才几十行，但是有效解决了大量setTimeout�
 对于问题一，从调用方法上就不存在，并且播放顺序由加入顺序决定  
 对于问题二，因为是“相对时间”，节点变化只需要改变相应的时间即可
 
-## 更新说明 ##
+## 更新记录 ##
+
+### v 0.4 ###
+新增duration()方法，让代码更易理解与维护
+新增actionList()方法，让代码更易阅读
 
 ### v 0.3 ###
 边缘化 run() 方法，列队播放与否，仅由暂停、非暂停两种状态控制  
