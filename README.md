@@ -29,7 +29,7 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 创建一个新的时间列队，可以创建多个相互不影响  
 - pause： 布尔，可选，默认false不暂停，是否在申明时就处于暂停状态
 
-**.duration( durationTime, callback )**
+**.duration( durationTime, callback );**  
 持续时间方式加入列队成员，本成员开始执行后，持续多长时间后再执行下一个成员（推荐）
 - durationTime： 毫秒，必须，本成员执行需要占用多长时间
 - callback： 回调，可选
@@ -41,12 +41,12 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 
 **actionList( type, list )**  
 批量添加成员  
-- type： 'duration'/'delay'，必须，list中时间的类型  
-- list： 数组，必须，成员列表，格式如下  
+- type： 'duration'/'delay'，必须，list中时间的类型
+- list： 数组，必须，成员列表，格式如下
 
 	[
-		[500, function(){ /* do something a */ }],
-		[700, function(){ /* do something b */ }]
+	  [500, function(){ /* do something a */ }],
+	  [700, function(){ /* do something b */ }]
 	]
 
 **.pause();**  
@@ -131,8 +131,8 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 ## 更新记录 ##
 
 ### v 0.4 ###
-新增duration()方法，让代码更易理解与维护
-新增actionList()方法，让代码更易阅读
+新增duration()方法，让代码更易理解与维护  
+新增actionList()方法，让代码更易阅读  
 
 ### v 0.3 ###
 边缘化 run() 方法，列队播放与否，仅由暂停、非暂停两种状态控制  
