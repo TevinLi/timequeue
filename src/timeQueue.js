@@ -1,5 +1,5 @@
 /**
- * timeQueue.js v0.4
+ * timeQueue.js v0.4.1
  * https://github.com/TevinLi/timeQueue
  *
  * by Tevin Li
@@ -15,6 +15,10 @@
     var Q = function (pause) {
         //列队
         this.que = [];
+        //当前执行的成员
+        this.current = null;
+        //当前执行的timeout的id
+        this.timeout = -1;
         //是否暂停，默认不暂停
         this.atPause = !!pause;
         //是否正在播放
@@ -68,6 +72,7 @@
         this.que = [];
         this.current = [0];
         this.atPlay = false;
+        clearTimeout(this.timeout);
         return this;
     };
 
@@ -92,7 +97,7 @@
         if (this.que.length > 0 && !this.atPause) {
             this.atPlay = true;
             this.current = this.que.shift();
-            setTimeout(function () {
+            this.timeout = setTimeout(function () {
                 that.current[1] && that.current[1]();
                 that.step();
             }, this.current[0]);
