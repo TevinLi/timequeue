@@ -13,13 +13,13 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 
 	var que1 = new TimeQueue();
 	//单写
-	que1.delay(800, function() {
+	que1.duration(800, function() {
 		$('#div1').addClass('show');
 	});
 	//连写
-	que1.delay(4500, function() {
+	que1.duration(4500, function() {
 		$('#div2').addClass('show');
-	}).delay(500, function() {	
+	}).duration(500, function() {	
 		$('#div3').addClass('show');
 	});
 
