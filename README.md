@@ -11,23 +11,25 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 
 ### 使用示例 ###
 
-	var que1 = new TimeQueue();
-	//单写
-	que1.duration(800, function() {
-		$('#div1').addClass('show');
+	var queue1 = new TimeQueue();
+	//加入一个列队成员
+	queue1.duration(800, function() {
+	  $('#div1').addClass('show');
 	});
-	//连写
-	que1.duration(4500, function() {
-		$('#div2').addClass('show');
-	}).duration(500, function() {	
-		$('#div3').addClass('show');
-	});
+	//多个列队成员加入链写
+	queue1
+	  .duration(4500, function() {
+	    $('#div2').addClass('show');
+	  })
+	  .duration(500, function() {	
+	    $('#div3').addClass('show');
+	  });
 
 ### 方法说明 ###
 
 **new TimeQueue( pause );**  
 创建一个新的时间列队，可以创建多个相互不影响  
-- pause： 布尔，可选，默认false不暂停，是否在申明时就处于暂停状态  
+- pause： 布尔，可选，默认false(不暂停)，在开始时是否就处于暂停状态  
 
 **.duration( durationTime, callback );**  
 持续时间方式加入列队成员，本成员开始执行后，持续多长时间后再执行下一个成员（推荐）  
@@ -39,7 +41,7 @@ timeQueue是为了有效解决了大量setTimeout密集调用时难以维护的�
 - delayTime： 毫秒，必须，上一成员开始执行后(尚未结束)的延迟时间  
 - callback： 回调，可选  
 
-**actionList( type, list )**  
+**.actionList( type, list )**  
 批量添加成员  
 - type： 'duration' / 'delay'，必须，list中时间的类型  
 - list： 数组，必须，成员列表  
