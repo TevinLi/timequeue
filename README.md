@@ -15,16 +15,16 @@ timeQueue.js 是为了有效解决了大量 setTimeout 密集调用时难以维�
 var queue1 = new TimeQueue();
 //加入一个列队成员
 queue1.duration(800, function() {
-  $('#div1').addClass('show');
+    $('#div1').addClass('show');
 });
 //多个列队成员加入链写
 queue1
-  .duration(4500, function() {
-    $('#div2').addClass('show');
-  })
-  .duration(500, function() {	
-    $('#div3').addClass('show');
-  });
+    .duration(4500, function() {
+        $('#div2').addClass('show');
+    })
+    .duration(500, function() {	
+        $('#div3').addClass('show');
+    });
 ```
 
 ### 方法说明
@@ -51,8 +51,8 @@ queue1
 list格式如下
 ```js
 [
-  [500, function(){ /* do something a */ }],
-  [700, function(){ /* do something b */ }]
+    [500, function(){ /* do something a */ }],
+    [700, function(){ /* do something b */ }]
 ]
 ```
 
@@ -77,20 +77,20 @@ list格式如下
 ```js
 //animate 1	
 setTimeout(function() {
-	//animate 2
-	setTimeout(function() {
-		//animate 3
-		setTimeout(function() {
-			//animate 4
-			setTimeout(function() {
-				//animate 5
-				setTimeout(function() {
-					//animate 6
-					//7、8、9...
-				}, 1000);
-			}, 1000);
-		}, 1000);
-	}, 1000);
+    //animate 2
+    setTimeout(function() {
+        //animate 3
+        setTimeout(function() {
+            //animate 4
+            setTimeout(function() {
+                //animate 5
+                setTimeout(function() {
+                    //animate 6
+                    //7、8、9...
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }, 1000);
 }, 1000);
 ```
 
@@ -103,19 +103,19 @@ setTimeout(function() {
 ```js
 //animate 1
 setTimeout(function() {
-	//animate 2
+    //animate 2
 }, 1000);
 setTimeout(function() {
-	//animate 3
+    //animate 3
 }, 2000);
 setTimeout(function() {
-	//animate 4
+    //animate 4
 }, 3000);
 setTimeout(function() {
-	//animate 5
+    //animate 5
 }, 4000);
 setTimeout(function() {
-	//animate 6
+    //animate 6
 }, 5000);
 //7、8、9...
 ```
@@ -131,11 +131,11 @@ setTimeout(function() {
 jQuery中也存在类似问题
 ```js
 $("#div1").fadeIn(500, function() {
-	$("#div2").fadeIn(500, function() {
-		$("#div3").fadeIn(500, function() {
-			//...
-		});
-	});
+    $("#div2").fadeIn(500, function() {
+        $("#div3").fadeIn(500, function() {
+            //...
+        });
+    });
 });
 $("#div4").delay(1000).fadeIn();
 $("#div5").delay(1400).fadeIn();
