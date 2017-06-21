@@ -1,6 +1,6 @@
 # timeQueue.js
 
-一个能简化 H5 复杂动作列队次序与时间管理的小工具  
+一个可以简化 H5 复杂动作列队次序与时间管理的小工具  
 timeQueue.js 是为了有效解决了大量 setTimeout 密集调用时难以维护的问题而创建的，使用 timeQueue.js，没有 N 层嵌套，使用“相对时间”，单个添加、批量添加、改序、暂停、继续、清空等操作让时间列队简单可控。
 
 ## 用法
@@ -66,7 +66,8 @@ list格式如下
 清空时间列队，阻止正在计时的动作  
 
 ## H5 Demo
-[https://tevinli.github.io/timequeue/index.html](https://tevinli.github.io/timequeue/index.html "timequeue.js h5 demo")
+[https://tevinli.github.io/timequeue/index.html](https://tevinli.github.io/timequeue/index.html "timequeue.js h5 demo")  
+(建议在移动端打开 H5 )
 
 <br>
 
