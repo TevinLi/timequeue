@@ -1,5 +1,5 @@
 /**
- * timeQueue.js v0.4.1
+ * timeQueue.js v0.4.2
  * https://github.com/TevinLi/timeQueue
  *
  * by Tevin Li
@@ -11,8 +11,11 @@
 
     'use strict';
 
-    //主对象
-    var Q = function (pause) {
+    /**
+     * 声明Queue类
+     * @param {boolean} pause
+     */
+    var Queue = function (pause) {
         //列队
         this.que = [];
         //当前执行的成员
@@ -25,18 +28,28 @@
         this.atPlay = false;
     };
 
-    //延迟时间方式添加执行列队成员
-    Q.prototype.delay = function (delayTime, callback) {
+    /**
+     * 延迟时间方式添加执行列队成员
+     * @param {number} delayTime
+     * @param callback
+     * @return {Queue}
+     */
+    Queue.prototype.delay = function (delayTime, callback) {
         this.que.push([delayTime, callback]);
         this.run();
         return this;
     };
 
-    //持续时间方式添加执行列队成员
-    Q.prototype.duration = function (duration, callback) {
+    /**
+     * 持续时间方式添加执行列队成员
+     * @param {number} duration
+     * @param callback
+     * @return {Queue}
+     */
+    Queue.prototype.duration = function (duration, callback) {
         duration = duration ? duration : 0;
         var surplus = this.que.length;
-        if (surplus == 0) {
+        if (surplus === 0) {
             this.que.push([0, callback]);
             this.que.push([duration, null]);
         } else if (surplus >= 1) {
@@ -54,21 +67,30 @@
         return this;
     };
 
-    //数组形式，按两种方式添加列队
-    Q.prototype.actionList = function (type, list) {
-        if (!type || typeof type != 'string' || (type != 'duration' && type != 'delay') ) {
+    /**
+     * 数组形式，按两种方式添加列队
+     * @param {string} type - 'duration' or 'delay'
+     * @param {array} list
+     * @return {Queue}
+     */
+    Queue.prototype.actionList = function (type, list) {
+        if (!type || typeof type !== 'string' || (type !== 'duration' && type !== 'delay') ) {
             throw new Error('No type!');
         }
-        if (!list || typeof list.length == 'undefined') {
+        if (!list || typeof list.length === 'undefined') {
             throw new Error('No action list!');
         }
         for (var i = 0; i < list.length; i++) {
             this[type](list[i][0], list[i][1]);
         }
+        return this;
     };
 
-    //清除延迟列队并阻止计时
-    Q.prototype.clean = function () {
+    /**
+     * 清除延迟列队并阻止计时
+     * @return {Queue}
+     */
+    Queue.prototype.clean = function () {
         this.que = [];
         this.current = [0];
         this.atPlay = false;
@@ -76,23 +98,32 @@
         return this;
     };
 
-    //暂停执行列队
-    Q.prototype.pause = function () {
+    /**
+     * 暂停执行列队
+     * @return {Queue}
+     */
+    Queue.prototype.pause = function () {
         this.atPause = true;
         return this;
     };
 
-    //从暂停恢复
-    Q.prototype.continue = function () {
-        if (this.atPause == true) {
+    /**
+     * 从暂停恢复
+     * @return {Queue}
+     */
+    Queue.prototype.continue = function () {
+        if (this.atPause === true) {
             this.atPause = false;
             this.step();
         }
         return this;
     };
 
-    //执行动作
-    Q.prototype.step = function () {
+    /**
+     * 执行动作
+     * @return {Queue}
+     */
+    Queue.prototype.step = function () {
         var that = this;
         if (this.que.length > 0 && !this.atPause) {
             this.atPlay = true;
@@ -107,8 +138,11 @@
         return this;
     };
 
-    //启动
-    Q.prototype.run = function () {
+    /**
+     * 启动
+     * @return {Queue}
+     */
+    Queue.prototype.run = function () {
         if (!this.atPlay && !this.atPause) {
             this.atPlay = true;
             this.step();
